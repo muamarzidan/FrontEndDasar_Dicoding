@@ -78,14 +78,14 @@ function newBuku(buku) {
         <p>Penulis: ${buku.author}</p>
         <p>Tahun: ${buku.year}</p>
         <div class="action">
-            <button class="green" onclick="toggleSelesai(${buku.id})">${buku.isComplete ? 'Belum selesai di Baca' : 'Selesai dibaca'}</button>
+            <button class="green" onclick="switchComplete(${buku.id})">${buku.isComplete ? 'Belum selesai di Baca' : 'Selesai dibaca'}</button>
             <button class="red" onclick="hapusBuku(${buku.id})">Hapus buku</button>
         </div>
     `;
     return bukuElement;
 }
 
-function toggleSelesai(id) {
+function switchComplete(id) {
     const rakAsal = document.getElementById('incompleteBookshelfList');
     const rakTujuan = document.getElementById('completeBookshelfList');
 
@@ -114,16 +114,16 @@ document.getElementById('inputBook').addEventListener('submit', function(event) 
 });
 
 function cariBuku() {
-    const judulCari = document.getElementById('searchBookTitle').value.toLowerCase();
-    const rakBukuBelumSelesai = document.getElementById('incompleteBookshelfList');
-    const rakBukuSelesai = document.getElementById('completeBookshelfList');
+    const cariJudul = document.getElementById('searchBookTitle').value.toLowerCase();
+    const befireRakBuku = document.getElementById('incompleteBookshelfList');
+    const rakBukuAfter = document.getElementById('completeBookshelfList');
 
-    rakBukuBelumSelesai.innerHTML = '';
-    rakBukuSelesai.innerHTML = '';
+    befireRakBuku.innerHTML = '';
+    rakBukuAfter.innerHTML = '';
 
-    const bukuCocok = bukuSendiri.filter(buku => buku.title.toLowerCase().includes(judulCari));
+    const filterBuku = bukuSendiri.filter(buku => buku.title.toLowerCase().includes(cariJudul));
 
-    bukuCocok.forEach(buku => {
+    filterBuku.forEach(buku => {
         simpanBuku(buku);
     });
 }
